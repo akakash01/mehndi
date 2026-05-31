@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🌿 Mehendi Artist Portfolio Website
 
 A premium, modern, and cinematic portfolio website for professional Mehendi Artists. Designed to showcase artistry, attract bridal clients, and provide a luxury user experience through elegant animations and clean design.
@@ -190,3 +191,6 @@ This project is licensed for personal and commercial portfolio use.
 ## 🌟 Vision
 
 The goal of this website is to create a luxury digital experience that reflects the beauty, elegance, and craftsmanship of professional Mehendi artistry while helping artists grow their personal brand and attract more clients.
+=======
+# mehndi
+>>>>>>> 409766b8be923b0cc26a83cf13bea04645c5cd62

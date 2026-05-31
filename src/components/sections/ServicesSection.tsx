@@ -1,75 +1,25 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { services } from '@/data/content';
 import { HiArrowRight } from 'react-icons/hi';
 
 function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
-    const cardRef = useRef<HTMLDivElement>(null);
-    const [isHovered, setIsHovered] = useState(false);
-
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-
-    const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], ['7deg', '-7deg']), { stiffness: 300, damping: 30 });
-    const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], ['-7deg', '7deg']), { stiffness: 300, damping: 30 });
-
-    const handleMouseMove = (e: React.MouseEvent) => {
-        if (!cardRef.current) return;
-        const rect = cardRef.current.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        mouseX.set(x);
-        mouseY.set(y);
-    };
-
-    const handleMouseLeave = () => {
-        mouseX.set(0);
-        mouseY.set(0);
-        setIsHovered(false);
-    };
-
     return (
         <motion.div
-            ref={cardRef}
-            className="perspective-1000"
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.7, delay: index * 0.1 }}
-            onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={handleMouseLeave}
+            viewport={{ once: true, margin: '-30px' }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
         >
-            <motion.div
-                className="glass-card p-6 lg:p-8 h-full cursor-pointer group relative overflow-hidden"
-                style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-                whileHover={{ z: 50 }}
-            >
-                {/* Animated border */}
-                <div
-                    className={`absolute inset-0 rounded-[16px] transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'
-                        }`}
-                    style={{
-                        background: 'linear-gradient(135deg, rgba(212,160,23,0.3), transparent, rgba(212,160,23,0.1))',
-                        padding: '1px',
-                        WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                        WebkitMaskComposite: 'xor',
-                        maskComposite: 'exclude',
-                    }}
-                />
-
-                {/* Hover glow */}
-                <div
-                    className={`absolute -inset-1 bg-gold-500/5 blur-xl rounded-2xl transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'
-                        }`}
-                />
+            <div className="glass-card p-6 lg:p-8 h-full cursor-pointer group relative overflow-hidden transition-all duration-300 hover:border-gold-500/20">
+                {/* Subtle hover glow */}
+                <div className="absolute -inset-1 bg-gold-500/5 blur-xl rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Content */}
                 <div className="relative z-10">
-                    {/* Icon / Decorative element */}
+                    {/* Icon */}
                     <div className="w-14 h-14 rounded-2xl bg-gold-500/5 border border-gold-500/10 flex items-center justify-center mb-6 group-hover:bg-gold-500/10 transition-colors duration-500">
                         <div className="w-6 h-6 rounded-full border-2 border-gold-500/40 group-hover:border-gold-500/80 transition-colors duration-500" />
                     </div>
@@ -102,7 +52,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
                         </motion.button>
                     </div>
                 </div>
-            </motion.div>
+            </div>
         </motion.div>
     );
 }

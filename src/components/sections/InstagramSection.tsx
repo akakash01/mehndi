@@ -1,16 +1,30 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { FaInstagram, FaHeart, FaPlay } from 'react-icons/fa';
 
-const instagramPosts = Array.from({ length: 8 }, (_, i) => ({
-    id: `ig-${i}`,
-    type: i % 3 === 0 ? 'reel' : 'post',
-    likes: Math.floor(Math.random() * 500) + 100,
-}));
+interface InstagramPost {
+    id: string;
+    type: 'reel' | 'post';
+    likes: number;
+}
+
+function generatePosts(): InstagramPost[] {
+    return Array.from({ length: 8 }, (_, i) => ({
+        id: `ig-${i}`,
+        type: i % 3 === 0 ? 'reel' : 'post',
+        likes: Math.floor(Math.random() * 500) + 100,
+    }));
+}
 
 export default function InstagramSection() {
+    const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
+
+    useEffect(() => {
+        setInstagramPosts(generatePosts());
+    }, []);
     return (
         <section id="instagram" className="relative py-20 lg:py-32 bg-[#0c0c0c] overflow-hidden">
             <div className="absolute inset-0 bg-luxury-gradient opacity-40" />

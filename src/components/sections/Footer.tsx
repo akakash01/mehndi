@@ -1,10 +1,17 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { navigationLinks } from '@/data/content';
 import { FaInstagram, FaFacebookF, FaPinterestP, FaYoutube, FaWhatsapp, FaHeart } from 'react-icons/fa';
 
 export default function Footer() {
+    const [currentYear, setCurrentYear] = useState<number | null>(null);
+
+    useEffect(() => {
+        setCurrentYear(new Date().getFullYear());
+    }, []);
+
     const scrollTo = (href: string) => {
         const el = document.querySelector(href);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -104,7 +111,7 @@ export default function Footer() {
                 {/* Bottom bar */}
                 <div className="mt-14 pt-8 border-t border-white/[0.03] flex flex-col sm:flex-row items-center justify-between gap-4">
                     <p className="font-body text-xs text-white/20 flex items-center gap-1">
-                        &copy; {new Date().getFullYear()} Mehendi Artist. Made with <FaHeart className="text-rose-500/60 text-[10px]" /> in India
+                        &copy; {currentYear ?? new Date().getFullYear()} Mehendi Artist. Made with <FaHeart className="text-rose-500/60 text-[10px]" /> in India
                     </p>
                     <p className="font-body text-xs text-white/15">
                         Premium Bridal Mehendi • Rajasthan • India
